@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ReservasAPI.Logica.Ciudad;
 import com.example.ReservasAPI.Logica.Parqueadero;
+import com.example.ReservasAPI.Repositorios.CiudadRepository;
 import com.example.ReservasAPI.Repositorios.ParqueaderoRepository;
 import com.example.ReservasAPI.Services.ConexionService;
 
@@ -26,6 +28,8 @@ public class BusquedaController {
     private ConexionService DBServicio = ConexionService.obtenerServicio();
     @Autowired
     private ParqueaderoRepository repositoryParqueadero;
+    @Autowired
+    private CiudadRepository repositoryCiudad;
 
     @GetMapping("/parqueaderos")
     public ResponseEntity<List<Parqueadero>> obtenerParqueaderos() throws ParseException{
@@ -39,6 +43,15 @@ public class BusquedaController {
     @GetMapping("/parqueaderos/{ciudad}")
     public ResponseEntity<List<Parqueadero>> obtenerParqueaderosPorCiudad(@PathParam(value = "ciudad") String ciudad) throws ParseException{
         return ResponseEntity.ok().body(repositoryParqueadero.findBycodCiudad(ciudad));
+    }
+
+    @GetMapping("/ciudades")
+    public ResponseEntity<List<Ciudad>> obtenerCiudades() throws ParseException{
+        ArrayList<Ciudad> response = new ArrayList<Ciudad>();
+        for(Ciudad i : repositoryCiudad.findAll()){
+            response.add(i);
+        }
+        return ResponseEntity.ok().body(response);
     }
 
 }
