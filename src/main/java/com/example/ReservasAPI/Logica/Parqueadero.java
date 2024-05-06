@@ -1,6 +1,7 @@
 package com.example.ReservasAPI.Logica;
 
 import java.sql.Date;
+import java.time.LocalTime;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -24,9 +25,9 @@ public class Parqueadero {
     @Column(name="I_24Hrs")
     public String i24Hrs;
     @Column(name="F_HORA_APERTURA")
-    public Date horaApertura;
+    public LocalTime horaApertura;
     @Column(name="F_HORA_CIERRE")
-    public Date horaCierre;
+    public LocalTime horaCierre;
     @Column(name="I_FIDELIZACION")
     public String iFidelizacion;
     @Column(name="O_DIRECCION")
