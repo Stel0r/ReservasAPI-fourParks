@@ -40,6 +40,12 @@ public class BusquedaController {
         return ResponseEntity.ok().body(response);
     }
 
+
+    @GetMapping("/parqueaderosCiudad")
+    public ResponseEntity<List<Map<String,Object>>> obtenerParqueaderosCiudad() throws ParseException{
+        return ResponseEntity.ok().body(repositoryParqueadero.encontrarParqueaderos());
+    }
+
     @GetMapping("/parqueaderos/{ciudad}")
     public ResponseEntity<List<Parqueadero>> obtenerParqueaderosPorCiudad(@PathParam(value = "ciudad") String ciudad) throws ParseException{
         return ResponseEntity.ok().body(repositoryParqueadero.findBycodCiudad(ciudad));

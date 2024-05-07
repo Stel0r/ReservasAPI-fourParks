@@ -44,5 +44,7 @@ public class Parqueadero {
     public String codCiudad;
     @Column(name="K_COD_TARIFA")
     public String codTarifa;
+    @Column(name = "N_NUM_PUESTOS")
+    public int numPuestos;
     
 }
