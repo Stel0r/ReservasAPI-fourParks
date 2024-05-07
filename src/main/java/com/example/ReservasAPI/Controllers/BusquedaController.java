@@ -10,6 +10,7 @@ import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ import com.example.ReservasAPI.Services.ConexionService;
 import jakarta.websocket.server.PathParam;
 
 @RestController
+@CrossOrigin
 public class BusquedaController {
     
     private ConexionService DBServicio = ConexionService.obtenerServicio();
