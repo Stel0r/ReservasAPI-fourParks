@@ -27,7 +27,6 @@ import jakarta.websocket.server.PathParam;
 @CrossOrigin
 public class BusquedaController {
     
-    private ConexionService DBServicio = ConexionService.obtenerServicio();
     @Autowired
     private ParqueaderoRepository repositoryParqueadero;
     @Autowired
