@@ -12,6 +12,7 @@ import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,7 +49,7 @@ public class BusquedaController {
     }
 
     @GetMapping("/parqueaderos/{ciudad}")
-    public ResponseEntity<List<Parqueadero>> obtenerParqueaderosPorCiudad(@PathParam(value = "ciudad") String ciudad) throws ParseException{
+    public ResponseEntity<List<Parqueadero>> obtenerParqueaderosPorCiudad(@PathVariable(value = "ciudad") String ciudad) throws ParseException{
         return ResponseEntity.ok().body(repositoryParqueadero.findBycodCiudad(ciudad));
     }
 

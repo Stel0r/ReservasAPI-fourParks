@@ -30,7 +30,7 @@ public class ClientController {
     public TarjetaRepository tarjetaRepository;
 
     @GetMapping("/misdatos/{usuario}")
-    public Map<String,Object> misDatosUsuario(@PathParam(value = "usuario") String usuario){
+    public Map<String,Object> misDatosUsuario(@PathVariable(value = "usuario") String usuario){
         return clienteRepository.obtenerMisDatos(usuario);
     }
 
