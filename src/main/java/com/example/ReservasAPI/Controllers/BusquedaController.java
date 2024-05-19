@@ -27,7 +27,7 @@ import jakarta.websocket.server.PathParam;
 
 @RestController()
 @CrossOrigin
-@RequestMapping("/busqueda")
+@RequestMapping("/consulta")
 public class BusquedaController {
     
     @Autowired
