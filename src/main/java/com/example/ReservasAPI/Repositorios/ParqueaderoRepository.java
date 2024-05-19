@@ -1,6 +1,5 @@
 package com.example.ReservasAPI.Repositorios;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.ReservasAPI.Logica.Parqueadero;
 
-import jakarta.persistence.Column;
 
 @Repository
 public interface ParqueaderoRepository extends CrudRepository<Parqueadero,String>{    
