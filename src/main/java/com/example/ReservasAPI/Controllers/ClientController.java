@@ -51,7 +51,7 @@ public class ClientController {
         return tarjetaRepository.findAllByNumDocumentoAndTipoDoc(numDoc,tipoDoc);
     }
 
-    @PatchMapping("/actualizar")
+    @PostMapping("/actualizar")
     public ResponseEntity<String> actualizarDatos(@RequestBody UserUpdateInfo body){
         System.out.println(body);
         Cliente cliente = clienteRepository.findById(new ClienteID(body.typeDoc,BigInteger.valueOf(body.numDoc))).orElse(null);
