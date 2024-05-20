@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +64,17 @@ public class ReservasController {
         try {
             reservasRepository.registrarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal), body.tipoVehiculo, BigInteger.valueOf(body.numDocumento), body.tipoDoc, body.codParqueadero,"10.0.0.0", body.subTotal);
             return ResponseEntity.ok().body(Map.of("Response","Se ha creado la nueva reserva"));
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
+        }
+    }
+
+
+    @DeleteMapping("/eliminar")
+    public ResponseEntity<Map<String,Object>> eliminarReserva(String id){
+        try {
+            reservasRepository.deleteById(id);
+            return ResponseEntity.ok().body(Map.of("Response","Se ha eliminado la reserva"));
         } catch (Exception e) {
             return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
         }
