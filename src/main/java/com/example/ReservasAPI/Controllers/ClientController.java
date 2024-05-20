@@ -1,6 +1,8 @@
 package com.example.ReservasAPI.Controllers;
 
 import java.math.BigInteger;
+import java.sql.Date;
+import java.text.DateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +30,14 @@ import com.example.ReservasAPI.RequestBody.UserUpdateInfo;
 import jakarta.websocket.server.PathParam;
 
 
+class InfoCardSend {
+    public String idCard;
+    public String namePro;
+    public String numberCard;
+    public int csv;
+    public String dateExp;
+}
+
 
 @CrossOrigin
 @RestController
@@ -51,14 +61,29 @@ public class ClientController {
         return tarjetaRepository.findAllByNumDocumentoAndTipoDoc(numDoc,tipoDoc);
     }
 
+    @PostMapping("/tarjetas/actualizar")
+    public ResponseEntity<Map<String,Object>> actualizarTarjeta(@RequestBody InfoCardSend body){
+        Tarjeta tarjeta = tarjetaRepository.findById(body.idCard).orElse(null);
+        if(tarjeta != null){
+            tarjeta.codSegur = body.csv;
+            tarjeta.fechaVencimiento = Date.valueOf(body.dateExp);
+            tarjeta.numTarjeta = body.numberCard;
+            tarjeta.nombrePropietario = body.namePro;
+            tarjetaRepository.save(tarjeta);    
+            return ResponseEntity.ok().body(Map.of("message","Se han actualizado los datos"));
+        }
+        return ResponseEntity.badRequest().body(Map.of("message","no se ha encontrado la tarjeta solicitada"));
+    }
+
+
     @PostMapping("/actualizar")
-    public ResponseEntity<String> actualizarDatos(@RequestBody UserUpdateInfo body){
+    public ResponseEntity<Map<String,Object>> actualizarDatos(@RequestBody UserUpdateInfo body){
         System.out.println(body);
         Cliente cliente = clienteRepository.findById(new ClienteID(body.typeDoc,BigInteger.valueOf(body.numDoc))).orElse(null);
         if (cliente != null){
             cliente.numCel = BigInteger.valueOf(body.numberCel);
         }else{
-            return ResponseEntity.badRequest().body("No se ha encontrado el cliente registrado");
+            return ResponseEntity.badRequest().body(Map.of("message","No se ha encontrado el Cliente"));
         }
 
         Usuario user = usuarioRepository.findById(body.nameUser).orElse(null);
@@ -69,12 +94,12 @@ public class ClientController {
             user.primerApellido = body.N_PRIMER_APELLIDO;
             user.segundoApellido = body.N_SEGUNDO_APELLIDO;
         }else{
-            return ResponseEntity.badRequest().body("No se ha encontrado el usuario registrado");
+            return ResponseEntity.badRequest().body(Map.of("message","No se ha encontrado el Usuario"));
         }
 
         clienteRepository.save(cliente);
         usuarioRepository.save(user);
-        return ResponseEntity.ok().body("Se ha actualizado los datos con exito!");
+        return ResponseEntity.ok().body(Map.of("message","Se han actualizado los datos!"));
         
     }
     
