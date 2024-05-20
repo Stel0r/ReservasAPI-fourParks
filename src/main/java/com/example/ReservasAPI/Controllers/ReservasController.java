@@ -1,7 +1,10 @@
 package com.example.ReservasAPI.Controllers;
 
 import java.math.BigInteger;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,16 +25,18 @@ import com.example.ReservasAPI.Logica.Reserva;
 import com.example.ReservasAPI.Repositorios.ClienteID;
 import com.example.ReservasAPI.Repositorios.ReservasRepository;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
 
 class InterfazCreacionReserva{
+    public String idReserva;
     public String fechaReserva;
-    public String fechaInicio;
-    public String fechaFinal;
+    public String tiempoInicio;
+    public String tiempoFinal;
     public int subTotal;
-    public float numDocumento;
+    public long numDocumento;
     public String tipoDoc;
+    public String tipoVehiculo;
     public String codParqueadero;
 }
 
@@ -53,7 +60,12 @@ public class ReservasController {
 
     @PutMapping("/agregarReserva")
     public ResponseEntity<Map<String,Object>> agregarReserva(@RequestBody InterfazCreacionReserva body){
-        return ResponseEntity.ok().body(Map.of("Response","el metodo aun esta en construccion"));
+        try {
+            reservasRepository.registrarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal), body.tipoVehiculo, BigInteger.valueOf(body.numDocumento), body.tipoDoc, body.codParqueadero,"10.0.0.0", body.subTotal);
+            return ResponseEntity.ok().body(Map.of("Response","Se ha creado la nueva reserva"));
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
+        }
     }
 
 }
