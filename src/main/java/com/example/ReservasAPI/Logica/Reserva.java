@@ -33,5 +33,8 @@ public class Reserva {
     public BigInteger numDocumento;
     @Column(name="I_TIPO_DOC")
     public String tipoDoc;
-
+    @Column(name = "K_COD_PUESTO")
+    public String codPuesto;
+    @Column(name="K_COD_PARQUEADERO")
+    public String codParqueadero;
 }

@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ReservasAPI.Logica.Ciudad;
 import com.example.ReservasAPI.Logica.Parqueadero;
+import com.example.ReservasAPI.Logica.Tarifa;
 import com.example.ReservasAPI.Repositorios.CiudadRepository;
 import com.example.ReservasAPI.Repositorios.ParqueaderoRepository;
+import com.example.ReservasAPI.Repositorios.TarifaRepository;
 import com.example.ReservasAPI.Services.ConexionService;
 
 import jakarta.websocket.server.PathParam;
@@ -34,6 +36,8 @@ public class BusquedaController {
     private ParqueaderoRepository repositoryParqueadero;
     @Autowired
     private CiudadRepository repositoryCiudad;
+    @Autowired
+    private TarifaRepository repositoryTarifa;
 
     @GetMapping("/parqueaderos")
     public ResponseEntity<List<Parqueadero>> obtenerParqueaderos() throws ParseException{
@@ -62,6 +66,12 @@ public class BusquedaController {
             response.add(i);
         }
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/tarifas/{tarifa}")
+    public ResponseEntity<Tarifa> obtenerTarifa(@PathVariable(value = "tarifa") String id){
+        return ResponseEntity.ok().body(repositoryTarifa.findById(id).orElse(null));
+        
     }
 
 }
