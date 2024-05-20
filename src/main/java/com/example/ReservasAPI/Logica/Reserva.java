@@ -2,6 +2,7 @@ package com.example.ReservasAPI.Logica;
 
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.Time;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,9 +21,9 @@ public class Reserva {
     @Column(name="F_INICIO")
     public Date fechaInicio;
     @Column(name="F_FIN")
-    public Date fechaFinal;
+    public Time fechaFinal;
     @Column(name="F_SALIDA")
-    public Date fechaSalida;
+    public Time fechaSalida;
     @Column(name="O_DIR_IP")
     public String dirIp;
     @Column(name="I_ESTADO")
