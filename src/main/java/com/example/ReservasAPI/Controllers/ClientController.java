@@ -64,19 +64,6 @@ public class ClientController {
         return tarjetaRepository.findAllByNumDocumentoAndTipoDoc(numDoc,tipoDoc);
     }
 
-    @PatchMapping("/tarjetas/actualizar")
-    public ResponseEntity<Map<String,Object>> actualizarTarjeta(@RequestBody InfoCardSend body){
-        Tarjeta tarjeta = tarjetaRepository.findById(body.idCard).orElse(null);
-        if(tarjeta != null){
-            tarjeta.codSegur = body.csv;
-            tarjeta.fechaVencimiento = Date.valueOf(body.dateExp);
-            tarjeta.numTarjeta = body.numberCard;
-            tarjeta.nombrePropietario = body.namePro;
-            tarjetaRepository.save(tarjeta);    
-            return ResponseEntity.ok().body(Map.of("message","Se han actualizado los datos"));
-        }
-        return ResponseEntity.badRequest().body(Map.of("message","no se ha encontrado la tarjeta solicitada"));
-    }
 
     @PostMapping("/tarjetas/agregar")
     public ResponseEntity<Map<String,Object>> agregarTarjeta(@RequestBody InfoCardSend body){
@@ -91,7 +78,7 @@ public class ClientController {
     }
 
 
-    @PostMapping("/actualizar")
+    @PatchMapping("/actualizar")
     public ResponseEntity<Map<String,Object>> actualizarDatos(@RequestBody UserUpdateInfo body){
         System.out.println(body);
         Cliente cliente = clienteRepository.findById(new ClienteID(body.typeDoc,BigInteger.valueOf(body.numDoc))).orElse(null);
