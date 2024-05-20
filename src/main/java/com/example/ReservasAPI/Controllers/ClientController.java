@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,8 @@ class InfoCardSend {
     public String numberCard;
     public int csv;
     public String dateExp;
+    public long numDoc;
+    public String typeDoc;
 }
 
 
@@ -61,7 +64,7 @@ public class ClientController {
         return tarjetaRepository.findAllByNumDocumentoAndTipoDoc(numDoc,tipoDoc);
     }
 
-    @PostMapping("/tarjetas/actualizar")
+    @PatchMapping("/tarjetas/actualizar")
     public ResponseEntity<Map<String,Object>> actualizarTarjeta(@RequestBody InfoCardSend body){
         Tarjeta tarjeta = tarjetaRepository.findById(body.idCard).orElse(null);
         if(tarjeta != null){
@@ -73,6 +76,18 @@ public class ClientController {
             return ResponseEntity.ok().body(Map.of("message","Se han actualizado los datos"));
         }
         return ResponseEntity.badRequest().body(Map.of("message","no se ha encontrado la tarjeta solicitada"));
+    }
+
+    @PostMapping("/tarjetas/agregar")
+    public ResponseEntity<Map<String,Object>> agregarTarjeta(@RequestBody InfoCardSend body){
+        try {
+            Tarjeta tarjeta = new Tarjeta(body.idCard, body.numberCard, body.csv, body.namePro, Date.valueOf(body.dateExp), BigInteger.valueOf(body.numDoc), body.typeDoc);
+            tarjetaRepository.save(tarjeta);
+            return ResponseEntity.ok().body(Map.of("message","Se ha agregado la nueva tarjeta con exito !"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("message","oops ha ocurrido un error, nuestros monos ingenieros estan trabajando en solucionarlo"));
+        }
+
     }
 
 

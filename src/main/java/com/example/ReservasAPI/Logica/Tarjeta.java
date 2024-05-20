@@ -28,4 +28,16 @@ public class Tarjeta {
     @Column(name="I_TIPO_DOC")
     public String tipoDoc;
 
+    
+    public Tarjeta(String identificador, String numTarjeta, int codSegur, String nombrePropietario,
+            Date fechaVencimiento, BigInteger numDocumento, String tipoDoc) {
+        this.identificador = identificador;
+        this.numTarjeta = numTarjeta;
+        this.codSegur = codSegur;
+        this.nombrePropietario = nombrePropietario;
+        this.fechaVencimiento = fechaVencimiento;
+        this.numDocumento = numDocumento;
+        this.tipoDoc = tipoDoc;
+    }
+
 }
