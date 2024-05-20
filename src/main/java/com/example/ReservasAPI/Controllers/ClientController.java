@@ -85,7 +85,7 @@ public class ClientController {
             tarjetaRepository.save(tarjeta);
             return ResponseEntity.ok().body(Map.of("message","Se ha agregado la nueva tarjeta con exito !"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message","oops ha ocurrido un error, nuestros monos ingenieros estan trabajando en solucionarlo"));
+            return ResponseEntity.badRequest().body(Map.of("message","Oops! algo salio mal, nuestros monos ingenieros estan trabajando en ello"));
         }
 
     }
