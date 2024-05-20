@@ -19,7 +19,7 @@ public class Reserva {
     @Column(name="F_FECHA_RESERVA")
     public Date fechaReserva;
     @Column(name="F_INICIO")
-    public Date fechaInicio;
+    public Time fechaInicio;
     @Column(name="F_FIN")
     public Time fechaFinal;
     @Column(name="F_SALIDA")
