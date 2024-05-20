@@ -17,16 +17,16 @@ public class Cliente {
 
 @Id
 @Column(name = "I_TIPO_DOC")
-String tipoDocumento;
+public String tipoDocumento;
 @Id
 @Column(name = "K_NUM_DOCUMENTO")
-BigInteger numDoc;
+public BigInteger numDoc;
 @Column(name = "Q_NUM_CELULAR")
-BigInteger numCel;
+public BigInteger numCel;
 @Column(name = "N_NOMBRE_USUARIO")
-String nomUsuario;
+public String nomUsuario;
 @Column(name = "N_PTS_FIDELIZACIÓN")
-int ptsFidelizacion;
+public int ptsFidelizacion;
 
 
 

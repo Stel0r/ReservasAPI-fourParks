@@ -22,6 +22,18 @@ public class Usuario implements UserDetails{
     public String rol;
     @Column(name = "O_CONTRASEÑA")
     public String pass;
+    @Column(name = "O_EMAIL")
+    public String email;
+    @Column(name = "I_ESTADO")
+    public String estado;
+    @Column(name = "N_PRIMER_NOMBRE")
+    public String primerNombre;
+    @Column(name = "N_SEGUNDO_NOMBRE")
+    public String segundoNombre;
+    @Column(name = "N_PRIMER_APELLIDO")
+    public String primerApellido;
+    @Column(name = "N_SEGUNDO_APELLIDO")
+    public String segundoApellido;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(rol));
