@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,9 @@ class InfoCardSend {
     public String typeDoc;
 }
 
+class InfoDeleteCard {
+    public String idCard;
+}
 
 @CrossOrigin
 @RestController
@@ -103,6 +107,16 @@ public class ClientController {
         usuarioRepository.save(user);
         return ResponseEntity.ok().body(Map.of("message","Se han actualizado los datos!"));
         
+    }
+
+    @DeleteMapping("/tarjetas/eliminar")
+    public ResponseEntity<Map<String,Object>> eliminarContra(@RequestBody InfoDeleteCard body){
+        try {
+            tarjetaRepository.deleteById(body.idCard);
+            return ResponseEntity.ok().body(Map.of("message","Se ha borrado exitosamente"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("message","Algo ha salido mal intentelo nuevamente mas tarde"));
+        }
     }
     
 }
