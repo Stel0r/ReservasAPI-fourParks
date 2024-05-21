@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ import com.example.ReservasAPI.Logica.Reserva;
 import com.example.ReservasAPI.Repositorios.ClienteID;
 import com.example.ReservasAPI.Repositorios.ReservasRepository;
 
+import ch.qos.logback.core.boolex.Matcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
 
@@ -66,7 +68,7 @@ public class ReservasController {
             reservasRepository.registrarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal), body.tipoVehiculo, BigInteger.valueOf(body.numDocumento), body.tipoDoc, body.codParqueadero,request.getRemoteAddr(), body.subTotal);
             return ResponseEntity.ok().body(Map.of("Response","Se ha creado la nueva reserva"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("Response",e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("Response",e.getMessage().split("##")[1]));
         }
     }
 
@@ -79,17 +81,16 @@ public class ReservasController {
             reservasRepository.save(res);
             return ResponseEntity.ok().body(Map.of("Response","Se ha cancelado la reserva"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("Response",e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("Response",e.getMessage().split("##")[1]));
         }
     }
-
     @PatchMapping("/actualizar")
     public ResponseEntity<Map<String,Object>> modificarReserva(@RequestBody InterfazCreacionReserva body, HttpServletRequest request){
         try {
             reservasRepository.modificarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal),request.getRemoteAddr(),body.subTotal);
             return ResponseEntity.ok().body(Map.of("Response","Se ha modificado la reserva con exito"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("Response",e.getCause().getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("Response",e.getMessage().split("##")[1]));
         }
     }
 }
