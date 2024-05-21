@@ -29,7 +29,7 @@ public class Reserva {
     @Column(name="I_ESTADO")
     public String estado;
     @Column(name="Q_SUB_TOTAL")
-    public int subTotal;
+    public float subTotal;
     @Column(name="K_NUM_DOCUMENTO")
     public BigInteger numDocumento;
     @Column(name="I_TIPO_DOC")

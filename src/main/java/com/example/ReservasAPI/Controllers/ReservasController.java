@@ -35,7 +35,7 @@ class InterfazCreacionReserva{
     public String fechaReserva;
     public String tiempoInicio;
     public String tiempoFinal;
-    public int subTotal;
+    public float subTotal;
     public long numDocumento;
     public String tipoDoc;
     public String tipoVehiculo;
