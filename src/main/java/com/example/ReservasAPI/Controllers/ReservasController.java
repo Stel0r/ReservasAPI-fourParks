@@ -66,7 +66,7 @@ public class ReservasController {
             reservasRepository.registrarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal), body.tipoVehiculo, BigInteger.valueOf(body.numDocumento), body.tipoDoc, body.codParqueadero,request.getRemoteAddr(), body.subTotal);
             return ResponseEntity.ok().body(Map.of("Response","Se ha creado la nueva reserva"));
         } catch (Exception e) {
-            return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("Response",e.getMessage()));
         }
     }
 
@@ -79,7 +79,7 @@ public class ReservasController {
             reservasRepository.save(res);
             return ResponseEntity.ok().body(Map.of("Response","Se ha cancelado la reserva"));
         } catch (Exception e) {
-            return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("Response",e.getMessage()));
         }
     }
 
@@ -89,7 +89,7 @@ public class ReservasController {
             reservasRepository.modificarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal),request.getRemoteAddr(),body.subTotal);
             return ResponseEntity.ok().body(Map.of("Response","Se ha modificado la reserva con exito"));
         } catch (Exception e) {
-            return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("Response",e.getMessage()));
         }
     }
 }
