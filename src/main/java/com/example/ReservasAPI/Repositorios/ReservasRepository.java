@@ -34,7 +34,8 @@ public interface ReservasRepository extends CrudRepository<Reserva,String>{
         String p_cod_reserva,
         Date p_fecha_reserva,
         Time p_inicio,
-        Time p_fin
+        Time p_fin,
+        String p_ip
     );
     
 }

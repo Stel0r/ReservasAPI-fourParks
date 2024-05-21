@@ -61,9 +61,9 @@ public class ReservasController {
 
 
     @PutMapping("/agregarReserva")
-    public ResponseEntity<Map<String,Object>> agregarReserva(@RequestBody InterfazCreacionReserva body){
+    public ResponseEntity<Map<String,Object>> agregarReserva(@RequestBody InterfazCreacionReserva body,HttpServletRequest request){
         try {
-            reservasRepository.registrarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal), body.tipoVehiculo, BigInteger.valueOf(body.numDocumento), body.tipoDoc, body.codParqueadero,"10.0.0.0", body.subTotal);
+            reservasRepository.registrarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal), body.tipoVehiculo, BigInteger.valueOf(body.numDocumento), body.tipoDoc, body.codParqueadero,request.getRemoteAddr(), body.subTotal);
             return ResponseEntity.ok().body(Map.of("Response","Se ha creado la nueva reserva"));
         } catch (Exception e) {
             return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
@@ -82,9 +82,9 @@ public class ReservasController {
     }
 
     @PatchMapping("/actualizar")
-    public ResponseEntity<Map<String,Object>> modificarReserva(@RequestBody InterfazCreacionReserva body){
+    public ResponseEntity<Map<String,Object>> modificarReserva(@RequestBody InterfazCreacionReserva body, HttpServletRequest request){
         try {
-            reservasRepository.modificarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal));
+            reservasRepository.modificarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal),request.getRemoteAddr());
             return ResponseEntity.ok().body(Map.of("Response","Se ha modificado la reserva con exito"));
         } catch (Exception e) {
             return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
