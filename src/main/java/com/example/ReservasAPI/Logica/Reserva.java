@@ -38,4 +38,6 @@ public class Reserva {
     public String codPuesto;
     @Column(name="K_COD_PARQUEADERO")
     public String codParqueadero;
+    @Column(name ="I_TIPO_VEHICULO")
+    public String tipoVechiculo;
 }
