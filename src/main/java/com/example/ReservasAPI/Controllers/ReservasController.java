@@ -71,11 +71,13 @@ public class ReservasController {
     }
 
 
-    @DeleteMapping("/eliminar")
+    @DeleteMapping("/cancelar")
     public ResponseEntity<Map<String,Object>> eliminarReserva(String id){
         try {
-            reservasRepository.deleteById(id);
-            return ResponseEntity.ok().body(Map.of("Response","Se ha eliminado la reserva"));
+            Reserva res = reservasRepository.findById(id).orElseThrow();
+            res.estado = "C";
+            reservasRepository.save(res);
+            return ResponseEntity.ok().body(Map.of("Response","Se ha cancelado la reserva"));
         } catch (Exception e) {
             return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
         }
