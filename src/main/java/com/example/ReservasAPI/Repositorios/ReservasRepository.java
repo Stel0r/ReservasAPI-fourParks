@@ -28,5 +28,13 @@ public interface ReservasRepository extends CrudRepository<Reserva,String>{
         String p_cod_parqueadero ,
         String p_ip,
         float p_subtotal);
+
+    @Procedure("modificar_reserva")
+    public void modificarReserva(
+        String p_cod_reserva,
+        Date p_fecha_reserva,
+        Time p_inicio,
+        Time p_fin
+    );
     
 }

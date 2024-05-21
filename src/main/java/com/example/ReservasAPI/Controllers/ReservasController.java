@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -80,4 +81,13 @@ public class ReservasController {
         }
     }
 
+    @PatchMapping("/actualizar")
+    public ResponseEntity<Map<String,Object>> modificarReserva(@RequestBody InterfazCreacionReserva body){
+        try {
+            reservasRepository.modificarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal));
+            return ResponseEntity.ok().body(Map.of("Response","Se ha modificado la reserva con exito"));
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(Map.of("Response",e.getMessage()));
+        }
+    }
 }
