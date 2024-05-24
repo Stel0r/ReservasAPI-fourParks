@@ -57,12 +57,7 @@ public class ClientController {
     public TarjetaRepository tarjetaRepository;
     @Autowired
     public UsuarioRepository usuarioRepository;
-
-    @GetMapping("/misdatos/{usuario}")
-    public Map<String,Object> misDatosUsuario(@PathVariable(value = "usuario") String usuario){
-        return clienteRepository.obtenerMisDatos(usuario);
-    }
-
+    
     @GetMapping("/tarjetas")
     public List<Tarjeta> misDatosTarjetas(@RequestParam BigInteger numDoc,@RequestParam String tipoDoc){
         return tarjetaRepository.findAllByNumDocumentoAndTipoDoc(numDoc,tipoDoc);
