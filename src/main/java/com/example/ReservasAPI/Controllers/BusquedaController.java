@@ -74,4 +74,9 @@ public class BusquedaController {
         
     }
 
+    @GetMapping("/tarifas")
+    public ResponseEntity<List<Tarifa>> obtenerTarifas(){
+        return ResponseEntity.ok().body((List<Tarifa>)repositoryTarifa.findAll());
+        
+    }
 }
