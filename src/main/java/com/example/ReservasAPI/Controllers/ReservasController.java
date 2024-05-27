@@ -30,6 +30,7 @@ import com.example.ReservasAPI.Repositorios.ReservasRepository;
 
 import ch.qos.logback.core.boolex.Matcher;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import jakarta.websocket.server.PathParam;
 import com.example.ReservasAPI.Services.AuditoriaService;
 class InterfazCreacionReserva{
@@ -62,13 +63,15 @@ public class ReservasController {
     }
 
     @PutMapping("/agregarReserva")
+    @Transactional
     public ResponseEntity<Map<String,Object>> agregarReserva(@RequestBody InterfazCreacionReserva body,HttpServletRequest request){
         try {
             reservasRepository.registrarReserva(body.idReserva,Date.valueOf(body.fechaReserva), Time.valueOf(body.tiempoInicio), Time.valueOf(body.tiempoFinal), body.tipoVehiculo, BigInteger.valueOf(body.numDocumento), body.tipoDoc, body.codParqueadero,request.getRemoteAddr(), body.subTotal);
             auditoriaService.registrar("Creacion Reserva", body.idReserva, request.getRemoteAddr());
             return ResponseEntity.ok().body(Map.of("Response","Se ha creado la nueva reserva"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("Response",e.getMessage().split("##")[1]));
+            String error = e.getMessage().split("##").length == 0 ? e.getMessage():e.getMessage().split("##")[1];
+            return ResponseEntity.badRequest().body(Map.of("Response",error));
         }
     }
 
