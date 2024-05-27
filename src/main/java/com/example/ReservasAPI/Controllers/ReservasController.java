@@ -44,8 +44,8 @@ class InterfazCreacionReserva{
     public String codParqueadero;
 }
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 @RequestMapping("/reservas")
 public class ReservasController {
 
@@ -55,6 +55,11 @@ public class ReservasController {
     @Autowired
     public AuditoriaService auditoriaService;
 
+
+    @GetMapping("")
+    public ResponseEntity<List<Reserva>> obtenerReservas(long doc,String tipoDoc){
+        return ResponseEntity.ok().body(reservasRepository.findByNumDocumentoAndTipoDoc(BigInteger.valueOf(doc), tipoDoc));
+    }
 
     @PutMapping("/agregarReserva")
     public ResponseEntity<Map<String,Object>> agregarReserva(@RequestBody InterfazCreacionReserva body,HttpServletRequest request){
