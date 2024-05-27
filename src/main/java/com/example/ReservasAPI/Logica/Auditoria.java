@@ -13,8 +13,8 @@ public class Auditoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
     public String usuario;
-    private String tipo_cambio;
-    private String elemento_cambiado;
-    private java.sql.Timestamp fecha;
-    private String direccionIP;
+    public String tipo_cambio;
+    public String elemento_cambiado;
+    public java.sql.Timestamp fecha;
+    public String direccionIP;
 }
